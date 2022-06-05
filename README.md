@@ -1,4 +1,4 @@
-# electron-typesafe-ipc
+# @kjn/electron-typesafe-ipc
 
 [![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 
@@ -16,7 +16,7 @@ const r = await ipcRenderer.invoke("substract", 1, 1);
 const r = await ipcRenderer.invoke("substract", 1, "hello");
 ```
 
-**With electron-typeSafe-ipc (safe, better)**
+**With @kjn/electron-typesafe-ipc (safe, better)**
 
 The user can explicitly state the types of both the parameters and the return type.
 
@@ -75,15 +75,15 @@ const r = invokeIpcChannel(substractIpcChannel, 10, 5); // == Promise<number>
 Install the package with npm or yarn (or just copy the files whatever works)
 
 ```sh
-npm install --save-dev electron-typesafe-ipc
+npm install --save-dev @kjn/electron-typesafe-ipc
 
-yarn add -D electron-typesafe-ipc
+yarn add -D @kjn/electron-typesafe-ipc
 ```
 
 Import the desired method where relevant
 
 ```ts
-import { invoke, handle, invokeIpcChannel, handleIpcChannel } from "electron-typesafe-ipc";
+import { invoke, handle, invokeIpcChannel, handleIpcChannel } from "@kjn/electron-typesafe-ipc";
 
 // For more details on the API interface check the docs below
 ```
@@ -95,7 +95,7 @@ Use the typesafe methods according to your needs.
 Use the `invokeIpcChannel` and `handleIpcChannel` methods instead of the original `invoke` and `handle` calls. This will work the best for large scale projects and forces you to adapt to good architecture practices.
 
 ```ts
-import { IpcChannel } from "electron-typesafe-ipc";
+import { IpcChannel } from "@kjn/electron-typesafe-ipc";
 
 const substractIpcChannel: IpcChannel<[number, number], number> = {
   name: "SUBSTRACT_CHANNEL",
@@ -131,7 +131,7 @@ _The first generic in the `handle` and `invoke` calls represents the parameters 
 ## Handle
 
 ```js
-import { handle } from "electron-typesafe-ipc";
+import { handle } from "@kjn/electron-typesafe-ipc";
 ```
 
 The handle function contains 2 generics that can be passed to it: `P` and `R` to represent the parameters and return type of the handler function respectively.
@@ -191,7 +191,7 @@ handle<[num], boolean | string>("IS_PIE_CHANNEL", (ev, n1) => {
 ## Invoke
 
 ```js
-import { invoke } from "electron-typesafe-ipc";
+import { invoke } from "@kjn/electron-typesafe-ipc";
 ```
 
 The invoke function contains 2 generics that can be passed to it: `P` and `R`, which represent the parameters type and return type of the handler call respectively.
@@ -235,13 +235,13 @@ _Note: since invoke is a asynchronous call, the return types are wrapped in Prom
 ## HandleIpcChannel
 
 ```js
-import { handleIpcChannel } from "electron-typesafe-ipc";
+import { handleIpcChannel } from "@kjn/electron-typesafe-ipc";
 ```
 
 Add a handler for an ipc channel, requires an object that implements the [IpcChannel interface](#ipcchannel-interface). Typechecking will be handled automatically.
 
 ```ts
-import { IpcChannel } from "electron-typesafe-ipc";
+import { IpcChannel } from "@kjn/electron-typesafe-ipc";
 
 const substractIpcChannel: IpcChannel<[number, number], number> = {
   name: "SUBSTRACT_CHANNEL",
@@ -254,7 +254,7 @@ handleIpcChannel(substractIpcChannel);
 ## InvokeIpcChannel
 
 ```js
-import { invokeIpcChannel } from "electron-typesafe-ipc";
+import { invokeIpcChannel } from "@kjn/electron-typesafe-ipc";
 ```
 
 Invoke the handler of an ipc channel, requires an object that implements the [IpcChannel interface](#ipcchannel-interface). Typechecking will be handled automatically.
@@ -262,7 +262,7 @@ Invoke the handler of an ipc channel, requires an object that implements the [Ip
 Also relies on the handler existing for that ipcChannel.
 
 ```ts
-import { IpcChannel } from "electron-typesafe-ipc";
+import { IpcChannel } from "@kjn/electron-typesafe-ipc";
 
 const substractIpcChannel: IpcChannel<[number, number], number> = {
   name: "SUBSTRACT_CHANNEL",
