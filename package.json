@@ -1,6 +1,6 @@
 {
   "name": "@kjn/electron-typesafe-ipc",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "TypeSafe IPC functions of Electron with TypeScript.",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
