@@ -1,0 +1,59 @@
+{
+  "name": "@kjn/electron-typesafe-ipc",
+  "version": "0.0.1",
+  "description": "TypeSafe IPC functions of Electron with TypeScript.",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "prepare": "husky install",
+    "prepublishOnly": "rm -rf dist && npm run build && cp -R build dist",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "lint:prettier": "prettier --check .",
+    "lint:prettier:fix": "prettier --write .",
+    "lint-staged": "lint-staged",
+    "build": "tsc --pretty",
+    "semantic-release": "semantic-release"
+  },
+  "author": "Kishan Nirghin <kishan@itslogical.nl>",
+  "keywords": [
+    "Electron IPC",
+    "TypeScript",
+    "Invoke<T>",
+    "Handle<T>",
+    "TypeSafety"
+  ],
+  "license": "ISC",
+  "devDependencies": {
+    "@commitlint/cli": "^16.2.3",
+    "@commitlint/config-conventional": "^16.2.1",
+    "@semantic-release/git": "^10.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.20.0",
+    "@typescript-eslint/parser": "^5.20.0",
+    "electron": "^19.0.3",
+    "eslint": "^8.14.0",
+    "eslint-config-prettier": "^8.5.0",
+    "husky": "^7.0.0",
+    "lint-staged": "^12.4.0",
+    "parcel": "^2.5.0",
+    "prettier": "^2.6.2",
+    "semantic-release": "^19.0.2",
+    "typescript": "^4.6.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kishanjay/electron-typesafe-ipc.git"
+  }
+}
