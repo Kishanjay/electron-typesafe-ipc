@@ -7,5 +7,5 @@ import { IpcMainInvokeEvent } from "electron";
  */
 export interface IpcChannel<P extends any[] = any[], R = void> {
   name: string;
-  handler: (event: IpcMainInvokeEvent, ...args: P) => R;
+  handler: (event: IpcMainInvokeEvent, ...args: P) => Promise<R>;
 }
