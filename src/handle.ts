@@ -14,7 +14,7 @@ import { IpcChannel } from "./IpcChannel";
  */
 export function handle<P extends any[] = [], R = void>(
   channel: string,
-  handler: (event: IpcMainInvokeEvent, ...args: P) => R
+  handler: (event: IpcMainInvokeEvent, ...args: P) => PromiseLike<R> | R
 ): void {
   ipcMain.handle(channel, (event: IpcMainInvokeEvent, ...args: any[]) =>
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -36,8 +36,7 @@ export function handle<P extends any[] = [], R = void>(
  * ```
  */
 export function handleIpcChannel<P extends any[], R>(ipcChannel: IpcChannel<P, R>): void {
-  ipcMain.handle(
-    ipcChannel.name,
-    (event: IpcMainInvokeEvent, ...args: any[]) => ipcChannel.handler(event, ...(args as P)) as R
+  ipcMain.handle(ipcChannel.name, (event: IpcMainInvokeEvent, ...args: any[]) =>
+    ipcChannel.handler(event, ...(args as P))
   );
 }
