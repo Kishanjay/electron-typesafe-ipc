@@ -42,7 +42,7 @@ const substractIpcChannel = {
 };
 
 // [@main.ts] this will add the handler to the 'SUBSTRACT_CHANNEL` as defined in the object.
-handleIpcChannel(substractIpcChannel);
+registerIpcChannel(substractIpcChannel);
 
 // [@preload.ts]  this will call the substractIpcChannel handler with the parameters 10 and 5
 //  additionally both the return type and the parameters are strongly typed.
@@ -62,7 +62,7 @@ const r = invokeIpcChannel(substractIpcChannel, 10, 5); // == Promise<number>
   - [invoke<P, R>](#invoke)
     - [invoke P generic](#invoke-p-generic)
     - [invoke R generic](#invoke-r-generic)
-  - [handleIpcChannel](#handleipcchannel)
+  - [registerIpcChannel](#registerIpcChannel)
   - [invokeIpcChannel](#invokeipcchannel)
   - [IpcChannel<P, R> Interface](#ipcchannel-interface)
     - [IpcChannel P generic](#ipcchannel-p-generic)
@@ -83,7 +83,7 @@ yarn add -D @kjn/electron-typesafe-ipc
 Import the desired method where relevant
 
 ```ts
-import { invoke, handle, invokeIpcChannel, handleIpcChannel } from "@kjn/electron-typesafe-ipc";
+import { invoke, handle, invokeIpcChannel, registerIpcChannel } from "@kjn/electron-typesafe-ipc";
 
 // For more details on the API interface check the docs below
 ```
@@ -92,7 +92,7 @@ Use the typesafe methods according to your needs.
 
 ## Recommended Usage
 
-Use the `invokeIpcChannel` and `handleIpcChannel` methods instead of the original `invoke` and `handle` calls. This will work the best for large scale projects and forces you to adapt to good architecture practices.
+Use the `invokeIpcChannel` and `registerIpcChannel` methods instead of the original `invoke` and `handle` calls. This will work the best for large scale projects and forces you to adapt to good architecture practices.
 
 ```ts
 import { IpcChannel } from "@kjn/electron-typesafe-ipc";
@@ -102,8 +102,8 @@ const substractIpcChannel: IpcChannel<[number, number], number> = {
   handler: (ev, n1: number, n2: number) => n1 + n2,
 };
 
-// handle invokations to the ipcChannel
-handleIpcChannel(substractIpcChannel);
+// register a ipcChannel handler
+registerIpcChannel(substractIpcChannel);
 
 // invoke the handler of the ipcChannel AND benefit from the typehints that it provides
 const r = await invokeIpcChannel(substractIpcChannel, 10, 4);
@@ -232,10 +232,10 @@ const r3 = invoke<[string], boolean | string>("RANDOM_CHANNEL", "str as input");
 
 _Note: since invoke is a asynchronous call, the return types are wrapped in Promises_
 
-## HandleIpcChannel
+## registerIpcChannel
 
 ```js
-import { handleIpcChannel } from "@kjn/electron-typesafe-ipc";
+import { registerIpcChannel } from "@kjn/electron-typesafe-ipc";
 ```
 
 Add a handler for an ipc channel, requires an object that implements the [IpcChannel interface](#ipcchannel-interface). Typechecking will be handled automatically.
@@ -248,7 +248,7 @@ const substractIpcChannel: IpcChannel<[number, number], number> = {
   handler: (ev, n1: number, n2: number) => n1 - n2,
 };
 
-handleIpcChannel(substractIpcChannel);
+registerIpcChannel(substractIpcChannel);
 ```
 
 ## InvokeIpcChannel
@@ -274,7 +274,7 @@ const result = await invokeIpcChannel(substractIpcChannel, 10, 100);
 
 ## IpcChannel Interface
 
-The IpcChannel interface defines the simplest blueprint to which an object should adhere to be used with the `handleIpcChannel` and `invokeIpcChannel` calls.
+The IpcChannel interface defines the simplest blueprint to which an object should adhere to be used with the `registerIpcChannel` and `invokeIpcChannel` calls.
 
 The IpcChannel interface contains 2 generics that can be passed to it: `P` and `R` to represent the parameters and return type of the handler respectively.
 

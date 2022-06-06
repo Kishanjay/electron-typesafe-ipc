@@ -29,13 +29,13 @@ export function handle<P extends any[] = [], R = void>(
  *
  * @example
  * ```js
- * handleIpcChannel({
+ * registerIpcChannel({
  *   name: 'equals',
  *   handler: (_ev, str1: string, str2: string) => str1 === str2
  * })
  * ```
  */
-export function handleIpcChannel<P extends any[], R>(ipcChannel: IpcChannel<P, R>): void {
+export function registerIpcChannel<P extends any[], R>(ipcChannel: IpcChannel<P, R>): void {
   ipcMain.handle(ipcChannel.name, (event: IpcMainInvokeEvent, ...args: any[]) =>
     ipcChannel.handler(event, ...(args as P))
   );
